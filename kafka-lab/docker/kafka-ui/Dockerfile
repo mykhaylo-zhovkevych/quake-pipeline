@@ -1,0 +1,8 @@
+FROM kafbat/kafka-ui
+LABEL authors="mykhaylo zhovkevych"
+
+ENV DYNAMIC_CONFIG_ENABLED=true \
+    KAFKA_CLUSTERS_0_NAME=local \
+    KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:19092
+
+EXPOSE 8080

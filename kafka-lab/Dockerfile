@@ -1,6 +1,5 @@
-LABEL authors="mykhaylo zhovkevych"
 # -- Build
-FROM maven:3.9-eclipse-temurin-21 as build
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /build
 
 COPY pom.xml .
@@ -11,6 +10,7 @@ RUN mvn -B -q clean package -DskipTests
 
 # -- Runtime
 FROM eclipse-temurin:21-jre-alpine
+LABEL authors="mykhaylo zhovkevych"
 WORKDIR /app
 
 RUN addgroup -S app && adduser -S -G app app
@@ -18,6 +18,7 @@ RUN addgroup -S app && adduser -S -G app app
 COPY --from=build /build/target/kafka-lab.jar app.jar
 USER app
 
+# In-network address: postgres listens on 5432 inside the kafka-lab network
 ENV KAFKA_BOOTSTRAP=kafka:19092 \
     DB_URL=jdbc:postgresql://postgres:5432/events \
     DB_USER=app \

@@ -1,1 +1,10 @@
+dev/ninoer/store/EventStore.class
+dev/ninoer/config/AppConfig.class
+dev/ninoer/kafka/EventProducer.class
+dev/ninoer/ingest/UsgsClient.class
+dev/ninoer/kafka/EventConsumer.class
+dev/ninoer/ingest/EventParseException.class
 dev/ninoer/App.class
+dev/ninoer/alert/Alerter.class
+dev/ninoer/ingest/EventParser.class
+dev/ninoer/model/QuakeEvent.class

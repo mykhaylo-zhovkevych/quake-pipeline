@@ -1,1 +1,10 @@
 /home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/App.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/alert/Alerter.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/config/AppConfig.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/ingest/EventParseException.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/ingest/EventParser.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/ingest/UsgsClient.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/kafka/EventConsumer.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/kafka/EventProducer.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/model/QuakeEvent.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/store/EventStore.java

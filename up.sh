@@ -125,6 +125,8 @@ start_container "kafka" \
     lab/kafka
 
 log "Starte Postgres"
+# host 5433 -> container 5432 (5432 is often already taken locally); the app
+# talks to postgres:5432 over the kafka-lab network, not this host port
 start_container "postgres" \
     -p 5433:5432 \
     -v pg-data:/var/lib/postgresql \

@@ -1,8 +1,8 @@
 package dev.ninoer.ingest;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.ninoer.model.QuakeEvent;
+import dev.ninoer.store.JsonObject;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -17,8 +17,6 @@ import java.util.List;
  */
 public final class EventParser {
 
-    private static final ObjectMapper Mapper = new ObjectMapper();
-
     private EventParser() {
     }
 
@@ -26,7 +24,7 @@ public final class EventParser {
     public static List<QuakeEvent> parseFeed(String geoJson) throws EventParseException {
         JsonNode root;
         try {
-            root = Mapper.readTree(geoJson);
+            root = JsonObject.readTree(geoJson);
         } catch (Exception e) {
             throw new EventParseException("feed body is not valid JSON", e);
         }

@@ -15,7 +15,8 @@ public record AppConfig(
 ) {
     public static AppConfig fromEnv() {
         return new AppConfig(
-                env("KAFKA_BOOTSTRAP", "localhost:19092"),
+                // 9092 is the EXTERNAL listener up.sh publishes to the host
+                env("KAFKA_BOOTSTRAP", "localhost:9092"),
                 env("DB_URL", "jdbc:postgresql://localhost:5433/events"),
                 env("DB_USER", "app"),
                 env("DB_PASSWORD", "app"),

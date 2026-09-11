@@ -8,3 +8,4 @@
 /home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/kafka/EventProducer.java
 /home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/model/QuakeEvent.java
 /home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/store/EventStore.java
+/home/mykhaylo/git/quake-pipeline/kafka-lab/src/main/java/dev/ninoer/store/Json.java

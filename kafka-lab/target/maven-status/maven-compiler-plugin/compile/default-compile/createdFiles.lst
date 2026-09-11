@@ -1,4 +1,5 @@
 dev/ninoer/store/EventStore.class
+dev/ninoer/store/Json.class
 dev/ninoer/config/AppConfig.class
 dev/ninoer/kafka/EventProducer.class
 dev/ninoer/ingest/UsgsClient.class

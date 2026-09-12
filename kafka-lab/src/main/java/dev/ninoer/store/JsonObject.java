@@ -8,7 +8,7 @@ public final class JsonObject {
 
     private static final ObjectMapper Mapper = new ObjectMapper();
 
-    private Json() {
+    private JsonObject() {
     }
 
     /** Parses a JSON string into a mutable tree. */

@@ -5,14 +5,19 @@ import dev.ninoer.model.QuakeEvent;
 import dev.ninoer.ingest.EventParser;
 import dev.ninoer.store.EventStore;
 import dev.ninoer.store.JsonObject;
+
+import org.apache.kafka.clients.consumer.CommitFailedException;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Properties;
 
@@ -26,6 +31,7 @@ public class EventConsumer {
     private final EventProducer dltProducer;
 
     private volatile boolean running = true;
+    private static final Logger log = LoggerFactory.getLogger(EventConsumer.class);
 
     public EventConsumer(String bootstrapServers, String groupId, EventStore store, EventProducer dltProducer) {
         Properties props = new Properties();
@@ -52,16 +58,30 @@ public class EventConsumer {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(5));
                 for (ConsumerRecord<String, String> record : records) {
                     if (!handle(record)) {
+                        if (!commitsPaused) {
+                            logCommitPause(record, null);
+                        }
                         commitsPaused = true;
                     }
                 }
                 if (!records.isEmpty() && !commitsPaused) {
-                    consumer.commitSync();
+                    try {
+                        consumer.commitSync();
+                    } catch (CommitFailedException e) {
+                        System.err.println("commit failed: " + e.getMessage());
+                    }
                 }
             }
         } finally {
             consumer.close();
         }
+    }
+
+    /** @param record, exception */
+    private void logCommitPause(ConsumerRecord<String, String> record, Exception e) {
+        log.error("Commit paused halting at partision={}, offset={}, key={}, ts={}, reason={}",
+            record.partition(), record.offset(), record.key(), Instant.now(), e == null ? "store failed" : e.getMessage()
+        );
     }
 
     /** @return true if the record was fully handled */
